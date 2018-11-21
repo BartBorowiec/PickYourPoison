@@ -1,5 +1,33 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: springgreen;
 }
+.col-4 {
+    max-width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (min-width: 860px) {
+    .col-4 {
+        max-width: 50%;
+        flex: 0 0 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media screen and (min-width: 1320px) {
+    .col-4 {
+        max-width: 33.33%;
+        flex: 0 0 33.33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

@@ -4,10 +4,16 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './index.css';
 
-import App from './App';
+
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+document.addEventListener('DOMContentLoaded', function(){
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+});
 
 
 // If you want your app to work offline and load faster, you can change
