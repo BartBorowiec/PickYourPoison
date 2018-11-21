@@ -33,7 +33,7 @@ class Header extends React.Component {
                 backgroundSize: "100% 100%",
                 backgroundRepeat: "no-repeat"
             }}>
-                <img style={{width: "80%"}} src={"pickyourpoison.png"} alt={"header-logo"}/>
+                <img style={{width: "80%"}} src={"pickyourpoison.png"} alt={"Pick Your Poison"}/>
                 <p className="lead">What do you want to drink tonight?</p>
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
