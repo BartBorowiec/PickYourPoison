@@ -5,6 +5,7 @@ body {
     box-sizing: border-box;
     background: url("./images/background.png");
 }
+
 .col-4 {
     max-width: 100%;
     flex: 0 0 100%;
@@ -28,6 +29,12 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
     }
 }
 

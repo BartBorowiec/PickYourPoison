@@ -2,12 +2,35 @@ import React from 'react';
 import axios from "axios";
 import NotFound from "./NotFound";
 
+
+class Loader extends React.Component {
+    render(){
+        return (
+            <div style={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+                <div className={"spinner"} style={{
+                    width: "200px",
+                    height: "200px",
+                    border: "2px solid #ddd",
+                    borderRight: "5px solid #333",
+                    borderRadius: "50%",
+                    animation: "spin .7s infinite linear"
+                }}/>
+            </div>
+        )
+    }
+}
+
 class Details extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            drink: null,
-            isResponse: false
+            drink: null
         }
     }
 
@@ -15,14 +38,13 @@ class Details extends React.Component {
         axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${this.props.match.params.id}`)
             .then(res => {
                 this.setState({
-                    drink: res.data.drinks ? res.data.drinks[0] : null,
-                    isResponse: true
+                    drink: res.data.drinks ? res.data.drinks[0] : null
                 })
             })
     }
     render(){
 
-        if(this.state.drink && this.state.isResponse){
+        if(this.state.drink){
             return (
                 <div>
                     <img src={this.state.drink.strDrinkThumb} alt=""/>
@@ -34,10 +56,10 @@ class Details extends React.Component {
                     </p>
                 </div>
             )
-        } else if (!this.state.drink && this.state.isResponse) {
+        } else if (!this.state.drink) {
             return <NotFound/>
         }
-        return <h1>MIXING</h1>
+        return <Loader/>
     }
 }
 export default Details;

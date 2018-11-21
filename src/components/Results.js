@@ -5,7 +5,7 @@ class DrinkCard extends React.Component {
     render() {
         return (
             <MDBCol  size="4">
-                <Card className={"mt-3 mb-3"} style={{ width: "22rem" }}>
+                <Card className={"mt-3 mb-3"}>
                     <CardImage
                         className="img-fluid"
                         src={this.props.img}
@@ -27,7 +27,7 @@ class DrinksList extends React.Component {
         if (!this.props.drinks){
             return (
                 <MDBCol  size="12">
-                    <Card className={"mt-3 mb-3"} style={{ width: "22rem" }}>
+                    <Card className={"mt-3 mb-3"} style={{ width: "60%", margin: "0 auto" }}>
                         <CardImage
                             className="img-fluid"
                             src={"sadbartender.jpg"}
@@ -37,7 +37,7 @@ class DrinksList extends React.Component {
                             <CardTitle>Not in stock</CardTitle>
 
                             <CardText>
-                                Sorry, we've ran out of ingredients, maybe try something else?
+                                Sorry, we've ran out of ingredients! Maybe try something else?
                             </CardText>
                         </CardBody>
                     </Card>

@@ -10,7 +10,7 @@ class NotFound extends React.Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol  size="12">
-                            <Card className={"mt-3 mb-3"} style={{ width: "50%", margin: "0 auto"}}>
+                            <Card className={"mt-3 mb-3"} style={{width: "50%", margin: "0 auto"}}>
                                 <CardImage
                                     className="img-fluid"
                                     src={"notfound.jpg"}

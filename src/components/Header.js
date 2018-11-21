@@ -1,6 +1,7 @@
 import React from "react";
 import {Jumbotron, Button} from "mdbreact";
 
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -11,6 +12,7 @@ class Header extends React.Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
+
         e.currentTarget.firstElementChild.value = "";
         if(typeof(this.props.passQueryString) === 'function') {
             this.props.passQueryString(this.state.string);
@@ -24,12 +26,17 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Jumbotron>
-                <h1 className="h1-responsive">Pick Your Poison</h1>
+            <Jumbotron color="indigo" style={{
+                padding: "40px",
+                textAlign: "center",
+                background:"url(jumbobg.png)",
+                backgroundSize: "100% auto"
+            }}>
+                <img src={"pickyourpoison.png"} alt={"header-logo"}/>
                 <p className="lead">What do you want to drink tonight?</p>
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
-                    <input type={"text"} onChange={this.handleInputChange}/>
+                    <input placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
                     <Button>Give me a drink!</Button>
                 </form>
             </Jumbotron>
