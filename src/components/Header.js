@@ -38,7 +38,7 @@ class Header extends React.Component {
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
-                    <Button>Give me a drink!</Button>
+                    <Button onClick={this.handleSubmit}>Give me a drink!</Button>
                 </form>
             </Jumbotron>
         )
