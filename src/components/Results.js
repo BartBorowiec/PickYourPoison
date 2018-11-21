@@ -24,7 +24,7 @@ class DrinkCard extends React.Component {
 class DrinksList extends React.Component {
 
     render() {
-        if (!this.props.drinks){
+        if (!this.props.drinks && this.props.isSubmitted){
             return (
                 <MDBCol  size="12">
                     <Card className={"mt-3 mb-3"} style={{ width: "60%", margin: "0 auto" }}>
@@ -44,7 +44,7 @@ class DrinksList extends React.Component {
                 </MDBCol>
             )
         }
-
+        if (!this.props.isSubmitted) return null;
         return(
             <>
                 {this.props.drinks.map((drink,i) => {
@@ -57,7 +57,7 @@ class DrinksList extends React.Component {
 
 class Results extends React.Component {
     render(){
-        return <DrinksList drinks={this.props.drinks}/>;
+        return <DrinksList drinks={this.props.drinks} isSubmitted={this.props.isSubmitted}/>;
     }
 
 }

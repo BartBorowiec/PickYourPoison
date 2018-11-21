@@ -11,26 +11,28 @@ class Home extends React.Component {
 
 
         this.state = {
-            drinks: []
+            drinks: null,
+            isSubmitted: false
         }
     }
 
-    getIngredients = () => {
-        let ingredients=[];
-        axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
-            .then(res => {
-                ingredients = res.data.drinks.map(el => el.strIngredient1)
-            })
-        this.setState({
-            ingredients: ingredients
-        })
-    }
+    // getIngredients = () => {
+    //     let ingredients=[];
+    //     axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    //         .then(res => {
+    //             ingredients = res.data.drinks.map(el => el.strIngredient1)
+    //         })
+    //     this.setState({
+    //         ingredients: ingredients
+    //     })
+    // }
 
     getDrinks = (string) => {
         axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${string}`)
             .then(res => {
                 this.setState({
-                    drinks: res.data.drinks
+                    drinks: res.data.drinks,
+                    isSubmitted: true
                 })
             })
 
@@ -41,7 +43,7 @@ class Home extends React.Component {
                 <MDBContainer>
                     <Header passQueryString={this.getDrinks} callIngredients={this.getIngredients}/>
                     <MDBRow>
-                        <Results drinks={this.state.drinks} />
+                        <Results drinks={this.state.drinks} isSubmitted={this.state.isSubmitted}/>
                     </MDBRow>
                 </MDBContainer>
             </div>

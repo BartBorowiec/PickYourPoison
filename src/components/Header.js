@@ -27,12 +27,13 @@ class Header extends React.Component {
     render() {
         return (
             <Jumbotron color="indigo" style={{
-                padding: "40px",
+                padding: "50px",
                 textAlign: "center",
                 background:"url(jumbobg.png)",
-                backgroundSize: "100% auto"
+                backgroundSize: "100% 100%",
+                backgroundRepeat: "no-repeat"
             }}>
-                <img src={"pickyourpoison.png"} alt={"header-logo"}/>
+                <img style={{width: "80%"}} src={"pickyourpoison.png"} alt={"header-logo"}/>
                 <p className="lead">What do you want to drink tonight?</p>
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
