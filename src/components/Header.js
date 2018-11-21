@@ -1,5 +1,5 @@
 import React from "react";
-import {Jumbotron} from "mdbreact";
+import {Jumbotron, Button} from "mdbreact";
 
 class Header extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class Header extends React.Component {
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
                     <input type={"text"} onChange={this.handleInputChange}/>
-                    <button>Give me a drink!</button>
+                    <Button>Give me a drink!</Button>
                 </form>
             </Jumbotron>
         )

@@ -26,11 +26,11 @@ class DrinksList extends React.Component {
     render() {
         if (!this.props.drinks){
             return (
-                <MDBCol  size="4">
+                <MDBCol  size="12">
                     <Card className={"mt-3 mb-3"} style={{ width: "22rem" }}>
                         <CardImage
                             className="img-fluid"
-                            src={"https://img.brainjet.com/quill/6/3/e/8/9/0/63e89055e322daa29f1a8d3d2d134f4621d0a354.jpg"}
+                            src={"sadbartender.jpg"}
                             waves
                         />
                         <CardBody className="text-center">
