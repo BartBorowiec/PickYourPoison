@@ -13,7 +13,18 @@ a:hover, input[type=submit]:hover{
     font-size: 36px;
     font-weight: 400;
 }
-
+.col-6 {
+    max-width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+}
+@media screen and (min-width: 820px) {
+    .col-6 {
+        max-width: 50%;
+        flex: 0 0 50%;
+        display: flex;
+    }
+}
 .col-4 {
     max-width: 100%;
     flex: 0 0 100%;
@@ -21,7 +32,7 @@ a:hover, input[type=submit]:hover{
     justify-content: center;
     align-items: center;
 }
-@media screen and (min-width: 860px) {
+@media screen and (min-width: 820px) {
     .col-4 {
         max-width: 50%;
         flex: 0 0 50%;
