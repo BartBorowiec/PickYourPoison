@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-family: 'Raleway', serif;
     box-sizing: border-box;
-    background: url("./images/background.png");
+    background: url("./images/background.jpg");
 }
 
 a:hover, input[type=submit]:hover{
