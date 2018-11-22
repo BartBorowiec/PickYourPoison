@@ -1,5 +1,5 @@
 import React from "react";
-import {Jumbotron, Button} from "mdbreact";
+import {Jumbotron} from "mdbreact";
 
 
 class Header extends React.Component {
@@ -26,7 +26,7 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Jumbotron color="indigo" style={{
+            <Jumbotron style={{
                 padding: "50px",
                 textAlign: "center",
                 background:"url(jumbobg.png)",
@@ -34,11 +34,16 @@ class Header extends React.Component {
                 backgroundRepeat: "no-repeat"
             }}>
                 <img style={{width: "80%"}} src={"pickyourpoison.png"} alt={"Pick Your Poison"}/>
-                <p className="lead">What do you want to drink tonight?</p>
+                <h1 className="lead">What do you want to drink tonight?</h1>
                 <hr className="my-2"/>
                 <form onSubmit={this.handleSubmit}>
-                    <input placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
-                    <Button onClick={this.handleSubmit}>Give me a drink!</Button>
+                    <input style={{ fontSize: "24px", padding: "10px"}}placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
+                    <input type={"submit"} value="Give me a drink!" className={"btn"} style={{
+                        backgroundColor: "#8EBB88",
+                        fontSize: "22px",
+                        margin: 0,
+                        verticalAlign: "top"
+                    }}/>
                 </form>
             </Jumbotron>
         )

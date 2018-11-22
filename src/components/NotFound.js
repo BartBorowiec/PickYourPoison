@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Card, CardBody, CardImage, CardText, CardTitle, MDBCol, MDBContainer, MDBRow} from "mdbreact";
+import { Link } from 'react-router-dom';
+import { Card, CardBody, CardImage, CardText, CardTitle, MDBCol, MDBContainer, MDBRow} from "mdbreact";
 
 
 class NotFound extends React.Component {
@@ -22,7 +23,7 @@ class NotFound extends React.Component {
                                     <CardText>
                                         I think you've had enough
                                     </CardText>
-                                    <Button href={"/"}>Go home</Button>
+                                    <Link to={"/"} className={"btn"} style={{backgroundColor: "#8EBB88"}}>Go home</Link>
                                 </CardBody>
                             </Card>
                         </MDBCol>

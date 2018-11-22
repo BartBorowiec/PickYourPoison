@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Card, CardBody, CardImage, CardTitle, MDBCol, CardText } from 'mdbreact';
+import { Link } from 'react-router-dom';
+import { Card, CardBody, CardImage, CardTitle, MDBCol, CardText } from 'mdbreact';
 
 class DrinkCard extends React.Component {
+
     render() {
         return (
             <MDBCol  size="4">
@@ -14,7 +16,7 @@ class DrinkCard extends React.Component {
                     <CardBody className="text-center">
                         <CardTitle>{this.props.title}</CardTitle>
 
-                        <Button href={`/${this.props.id}`}>Recipe</Button>
+                        <Link className="btn" style={{backgroundColor: "#8EBB88"}} to={`/${this.props.id}`}>Recipe</Link>
                     </CardBody>
                 </Card>
             </MDBCol>

@@ -34,7 +34,9 @@ class Home extends React.Component {
                     drinks: res.data.drinks,
                     isSubmitted: true
                 })
-            })
+            }).then(()=> {
+            window.scrollTo({left: "0", top:document.querySelector(".jumbotron").getBoundingClientRect().bottom, behavior: "smooth"})
+        })
 
     }
     render(){

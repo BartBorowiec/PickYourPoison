@@ -8,8 +8,6 @@ import React from 'react';
 
 import Home from './Home';
 import Details from './Details';
-import NotFound from './NotFound';
-
 
 class App extends React.Component {
     render() {
@@ -19,7 +17,6 @@ class App extends React.Component {
                     <Switch>
                         <Route path="/:id" component={Details} />
                         <Route exact path="/" component={Home} />
-                        <Route component={NotFound} />
                     </Switch>
                 </div>
             </BrowserRouter>
