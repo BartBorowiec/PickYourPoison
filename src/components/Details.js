@@ -15,13 +15,52 @@ class Details extends React.Component {
         super(props);
         this.state = {
             drink: null,
-            isLoaded: false
+            isLoaded: false,
+            isFavourite: false
         }
     }
+    addNewFavourite = (drinkId) => {
+
+        // Get a key for a new Post.
+        const newDrinkKey = firebase.database().ref().child('favourites').push().key;
+
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        let updates = {};
+        updates['/user/favourites/' + newDrinkKey] = drinkId;
+        return firebase.database().ref().update(updates);
+    }
+
+    removeFavourite = (drinkId) => {
+
+        const dbRef = firebase.database().ref().child('/user/favourites');
+
+        let drinkKey = "";
+
+        dbRef.on('value', snap => {
+            const entries = Object.entries(snap.val());
+            for(let i=0; i<entries.length; i++) {
+                if (entries[i][1] === drinkId){
+                    drinkKey = entries[i][0]
+                }
+            }
+        })
+
+
+        let updates = {};
+        updates['/user/favourites/' + drinkKey] = null;
+        return firebase.database().ref().update(updates);
+
+    }
+
 
     componentDidMount() {
-        this.setState({
-            isLoaded: false
+        const dbRef = firebase.database().ref().child('/user/favourites');
+        dbRef.on('value', snap => {
+            if(snap.val()){
+                this.setState({
+                    isFavourite: Object.values(snap.val()).includes(this.props.match.params.id)
+                })
+            }
         })
         axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${this.props.match.params.id}`)
             .then(res => {
@@ -32,14 +71,20 @@ class Details extends React.Component {
             })
     }
 
-    handleFavourite = () => {
+    handleFavClick = () => {
 
+        if(this.state.isFavourite){
+            this.removeFavourite(this.props.match.params.id)
+        } else {
+            this.addNewFavourite(this.props.match.params.id)
+        }
+        this.setState({
+            isFavourite: !this.state.isFavourite
+        })
     }
 
     render(){
-        const favourites = firebase.database().ref().child('user/favourites');
-        let isFavourite = false;
-        favourites.on('value', snap => isFavourite = snap.val().includes(this.props.match.params.id))
+
         if(this.state.drink){
             const ingredientsList = [];
             const drink = this.state.drink;
@@ -75,8 +120,8 @@ class Details extends React.Component {
                                         {drink.strInstructions}
                                     </p>
 
-                                    {isFavourite ? <FontAwesomeIcon style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>
-                                        : <FontAwesomeIcon style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
+                                    {this.state.isFavourite ? <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>
+                                        : <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
                                     <Link className="btn" style={{backgroundColor: "#8EBB88",width: "150px"}} to={'../'}>Go back</Link>
                                 </MDBCol>
                             </MDBRow>

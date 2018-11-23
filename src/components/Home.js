@@ -33,7 +33,6 @@ class Home extends React.Component {
         return (
             <div>
                 <MDBContainer>
-
                     <Header passQueryString={this.getDrinks} callIngredients={this.getIngredients}/>
                     <MDBRow>
                         <Results drinks={this.state.drinks} isSubmitted={this.state.isSubmitted}/>
