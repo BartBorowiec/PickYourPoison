@@ -67,4 +67,9 @@ a:hover, input[type=submit]:hover{
     }
 }
 
-
+.signup {
+    background-color: white;
+    padding: 40px;
+    border-radius: 6px;
+    margin: 40px auto;
+}

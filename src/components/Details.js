@@ -103,13 +103,13 @@ class Details extends React.Component {
                 }}>
                     <MDBContainer>
                         <MDBCard style={{padding: "40px",
-                            background:"url(jumbobg.png)",
+                            background:"url(../jumbobg.png)",
                             backgroundSize: "100% 100%",
                             backgroundRepeat: "no-repeat"
                         }}>
                             <MDBRow>
                                 <MDBCol size={"6"}>
-                                    <img style={{width: "100%", height: "100%"}}src={drink.strDrinkThumb} alt=""/>
+                                    <img style={{width: "100%", height: "100%"}} src={drink.strDrinkThumb} alt=""/>
                                 </MDBCol>
                                 <MDBCol size={"4"} style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
                                     <h2>{drink.strDrink}</h2>

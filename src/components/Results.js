@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardImage, CardTitle, MDBCol, CardText } from 'mdbreact';
+import { Card, CardBody, CardImage, CardTitle, MDBCol } from 'mdbreact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons';
 import { faHeart as fasHeart} from '@fortawesome/free-solid-svg-icons';
 import firebase from "firebase";
+import NotInStock from "./NotInStock";
 
 
 class DrinkCard extends React.Component {
@@ -15,7 +16,7 @@ class DrinkCard extends React.Component {
             isFavourite: this.props.isFavourite
         }
     }
-    addNewFavourite = (drinkId) => {
+    addFavourite = (drinkId) => {
 
         // Get a key for a new Post.
         const newDrinkKey = firebase.database().ref().child('favourites').push().key;
@@ -52,7 +53,7 @@ class DrinkCard extends React.Component {
         if(this.state.isFavourite){
             this.removeFavourite(this.props.id)
         } else {
-            this.addNewFavourite(this.props.id)
+            this.addFavourite(this.props.id)
         }
         this.setState({
             isFavourite: !this.state.isFavourite
@@ -73,7 +74,7 @@ class DrinkCard extends React.Component {
                         {this.state.isFavourite ? <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>
                             : <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
                         <Link className="btn" style={{backgroundColor: "#8EBB88"}}
-                              to={`/${this.props.id}`}>Recipe</Link>
+                              to={`/drink/${this.props.id}`}>Recipe</Link>
                     </CardBody>
                 </Card>
             </MDBCol>
@@ -106,22 +107,7 @@ class DrinksList extends React.Component {
     render() {
         if (!this.props.drinks && this.props.isSubmitted){
             return (
-                <MDBCol  size="12">
-                    <Card className={"mt-3 mb-3"} style={{ width: "60%", margin: "0 auto" }}>
-                        <CardImage
-                            className="img-fluid"
-                            src={"sadbartender.jpg"}
-                            waves
-                        />
-                        <CardBody className="text-center">
-                            <CardTitle>Not in stock</CardTitle>
-
-                            <CardText>
-                                Sorry, we've ran out of ingredients! Maybe try something else?
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </MDBCol>
+                <NotInStock/>
             )
         }
 

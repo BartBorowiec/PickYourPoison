@@ -34,7 +34,7 @@ class Loader extends React.Component {
                     transform: "rotate(15deg)",
                     animation: "shake .7s infinite alternate linear"
                 }}>
-                    <img src={"logo.png"} alt={"loader logo"} style={{
+                    <img src={"../logo.png"} alt={"loader logo"} style={{
                         width: "100%",
                         height: "100%"
                     }}/>

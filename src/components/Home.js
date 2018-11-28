@@ -3,7 +3,7 @@ import Results from './Results';
 import Header from './Header';
 import {MDBContainer, MDBRow} from "mdbreact";
 import axios from "axios";
-
+import NavbarPage from './Navbar'
 
 
 class Home extends React.Component {
@@ -32,6 +32,7 @@ class Home extends React.Component {
     render(){
         return (
             <div>
+                <NavbarPage/>
                 <MDBContainer>
                     <Header passQueryString={this.getDrinks} callIngredients={this.getIngredients}/>
                     <MDBRow>

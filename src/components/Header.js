@@ -52,13 +52,13 @@ class Header extends React.Component {
                     <input style={{ fontSize: "24px", padding: "10px"}} placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
                     <input type={"submit"} value="Give me a drink!" className={"btn"} style={{
                         backgroundColor: "#8EBB88",
-                        fontSize: "22px",
+                        fontSize: "24px",
                         margin: 0,
                         verticalAlign: "top"
                     }}/>
                 </form>
                 <Link className="btn" style={{backgroundColor: "#8EBB88"}}
-                            to={`/${this.state.randomDrink}`}>Surprise me!</Link>
+                            to={`/drink/${this.state.randomDrink}`}>Surprise me!</Link>
             </Jumbotron>
         )
     }
