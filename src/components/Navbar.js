@@ -1,10 +1,39 @@
 import React from "react";
 import { Navbar, MDBContainer, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse } from "mdbreact";
+import firebase from "firebase";
 
 class NavbarPage extends React.Component {
-    state = {
-        isOpen: false
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            isOpen: false,
+            user: null
+        };
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    user: user
+                })
+            } else {
+                this.setState({
+                    user: null
+                })
+            }
+        });
+    }
+
+    handleLogout = () => {
+        firebase.auth().signOut()
+            .then(function() {
+                document.location.replace("/")
+            })
+            .catch(function(error) {
+                console.log(error)
+            });
+    }
 
     toggleCollapse = ()=> {
         this.setState({ isOpen: !this.state.isOpen });
@@ -34,10 +63,13 @@ class NavbarPage extends React.Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                <NavLink to="/login">Log in</NavLink>
+                                {this.state.user && <p>Hello, <strong>{this.state.user.displayName}</strong>!</p>}
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/signup">Sign up</NavLink>
+                                {this.state.user ? <NavLink to={""} onClick={this.handleLogout}>Log out</NavLink> : <NavLink to="/login">Log in</NavLink>}
+                            </NavItem>
+                            <NavItem>
+                                {!this.state.user && <NavLink to="/signup">Sign up</NavLink>}
                             </NavItem>
                         </NavbarNav>
                     </Collapse></MDBContainer>

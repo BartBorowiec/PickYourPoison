@@ -10,32 +10,46 @@ class Signup extends React.Component {
             email: "",
             confirmEmail: "",
             password: "",
-            isSubmitted: false
+            isSubmitted: false,
+            error: ""
         }
     }
     handleInputChange = (e) => {
         this.setState({
             isSubmitted: false,
+            error: "",
             [e.currentTarget.id]: e.currentTarget.value
         })
         console.log(e.currentTarget.id);
     }
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.setState ({
             isSubmitted: true
         })
         const {name, email, confirmEmail, password} = this.state;
         if(name && email && email === confirmEmail && password) {
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ...
+            await firebase.auth().createUserWithEmailAndPassword(email, password).catch(error=>{
+                this.setState({
+                    error: error.message
+                })
             });
+            await firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
+                this.setState({
+                    error: error.message
+                })
+            });
+            await firebase.auth().currentUser.updateProfile({
+                displayName: name
+            }).catch(error => {
+                this.setState({
+                    error: error.message
+                })
+            });
+            if (!this.state.error) {
+                document.location.replace("/");
+            }
         }
-
-
     }
 
     render(){
@@ -94,10 +108,10 @@ class Signup extends React.Component {
                                 className="form-control"
                             />
                             { !this.state.password && this.state.isSubmitted ? <p>You must enter a password</p> : null }
-
+                            {this.state.error && <p>{this.state.error}</p>}
                             <div className="text-center mt-4">
                                 <button className={"btn"} style={{backgroundColor: "#8EBB88"}} type="submit">
-                                    Register
+                                    Sign up
                                 </button>
                             </div>
                         </form>
