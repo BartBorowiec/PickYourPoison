@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import { Navbar, MDBContainer, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse } from "mdbreact";
 
 class NavbarPage extends React.Component {

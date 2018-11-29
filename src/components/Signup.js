@@ -1,11 +1,30 @@
 import React from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 
 class Signup extends React.Component {
-
-    handleSubmit = () => {
-
+    constructor(props) {
+        super(props);
+        this.state ={
+            name: "",
+            email: "",
+            confirmEmail: "",
+            password: "",
+            isSubmitted: false
+        }
+    }
+    handleInputChange = (e) => {
+        this.setState({
+            isSubmitted: false,
+            [e.currentTarget.id]: e.currentTarget.value
+        })
+        console.log(e.currentTarget.id);
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState ({
+            isSubmitted: true
+        })
     }
 
     render(){
@@ -19,19 +38,23 @@ class Signup extends React.Component {
                                 Your name
                             </label>
                             <input
+                                onChange={this.handleInputChange}
                                 type="text"
                                 id="name"
                                 className="form-control"
                             />
+                            { !this.state.name && this.state.isSubmitted ? <p>You must enter username</p> : null }
                             <br />
                             <label htmlFor="email" className="grey-text">
                                 Your email
                             </label>
                             <input
+                                onChange={this.handleInputChange}
                                 type="email"
                                 id="email"
                                 className="form-control"
                             />
+                            { !this.state.email && this.state.isSubmitted ? <p>You must enter email</p> : null }
                             <br />
                             <label
                                 htmlFor="confirmEmail"
@@ -40,10 +63,12 @@ class Signup extends React.Component {
                                 Confirm your email
                             </label>
                             <input
+                                onChange={this.handleInputChange}
                                 type="email"
                                 id="confirmEmail"
                                 className="form-control"
                             />
+                            { !(this.state.email === this.state.confirmEmail)  && this.state.isSubmitted ? <p>Different emails</p> : null }
                             <br />
                             <label
                                 htmlFor="password"
@@ -52,10 +77,13 @@ class Signup extends React.Component {
                                 Your password
                             </label>
                             <input
+                                onChange={this.handleInputChange}
                                 type="password"
                                 id="password"
                                 className="form-control"
                             />
+                            { !this.state.password && this.state.isSubmitted ? <p>You must enter a password</p> : null }
+
                             <div className="text-center mt-4">
                                 <button className={"btn"} style={{backgroundColor: "#8EBB88"}} type="submit">
                                     Register
