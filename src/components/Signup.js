@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-
+import firebase from "firebase";
 
 class Signup extends React.Component {
     constructor(props) {
@@ -25,6 +25,17 @@ class Signup extends React.Component {
         this.setState ({
             isSubmitted: true
         })
+        const {name, email, confirmEmail, password} = this.state;
+        if(name && email && email === confirmEmail && password) {
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+            });
+        }
+
+
     }
 
     render(){
