@@ -10,6 +10,7 @@ import Home from './Home';
 import Details from './Details';
 import Login from './Login';
 import Signup from './Signup';
+import Profile from './Profile';
 
 class App extends React.Component {
     render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
             <BrowserRouter>
                 <div>
                     <Switch>
+                        <Route path="/user/:uid" component={Profile} />
                         <Route path="/drink/:id" component={Details} />
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />

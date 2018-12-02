@@ -17,8 +17,7 @@ class DrinkCard extends React.Component {
         }
     }
     addFavourite = (drinkId) => {
-
-        // Get a key for a new Post.
+        // // Get a key for a new Post.
         const newDrinkKey = firebase.database().ref().child('favourites').push().key;
 
         // Write the new post's data simultaneously in the posts list and the user's post list.
@@ -71,10 +70,14 @@ class DrinkCard extends React.Component {
                     />
                     <CardBody className="text-center">
                         <CardTitle>{this.props.title}</CardTitle>
-                        {this.state.isFavourite ? <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>
-                            : <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
+
+                        {firebase.auth().currentUser && this.state.isFavourite && <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>}
+                        {firebase.auth().currentUser && !this.state.isFavourite && <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
+                        {!firebase.auth().currentUser && null}
+
                         <Link className="btn" style={{backgroundColor: "#8EBB88"}}
                               to={`/drink/${this.props.id}`}>Recipe</Link>
+
                     </CardBody>
                 </Card>
             </MDBCol>

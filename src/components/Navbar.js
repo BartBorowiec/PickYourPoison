@@ -63,7 +63,7 @@ class NavbarPage extends React.Component {
                         </NavbarNav>
                         <NavbarNav right>
                             <NavItem>
-                                {this.state.user && <p>Hello, <strong>{this.state.user.displayName}</strong>!</p>}
+                                {this.state.user && <NavLink to={`/user/${this.state.user.uid}`}>Hello, <strong>{this.state.user.displayName}</strong>!</NavLink>}
                             </NavItem>
                             <NavItem>
                                 {this.state.user ? <NavLink to={""} onClick={this.handleLogout}>Log out</NavLink> : <NavLink to="/login">Log in</NavLink>}
