@@ -1,6 +1,6 @@
 import React from 'react';
 import {MDBCard, CardTitle, CardBody, MDBContainer} from 'mdbreact';
-import firebase from "firebase";
+
 
 import {Link} from "react-router-dom";
 
@@ -8,8 +8,11 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: firebase.auth().currentUser
+            user: null
         }
+    }
+    componentDidMount() {
+
     }
 
     render(){

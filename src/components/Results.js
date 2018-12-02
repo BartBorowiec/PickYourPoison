@@ -4,7 +4,9 @@ import { Card, CardBody, CardImage, CardTitle, MDBCol } from 'mdbreact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons';
 import { faHeart as fasHeart} from '@fortawesome/free-solid-svg-icons';
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 import NotInStock from "./NotInStock";
 
 
@@ -17,18 +19,18 @@ class DrinkCard extends React.Component {
         }
     }
     addFavourite = (drinkId) => {
-        // // Get a key for a new Post.
         const newDrinkKey = firebase.database().ref().child('favourites').push().key;
-
+        const userID = firebase.auth().currentUser.uid;
         // Write the new post's data simultaneously in the posts list and the user's post list.
         let updates = {};
-        updates['/user/favourites/' + newDrinkKey] = drinkId;
+        updates['/user/' + userID + '/favourites/' + newDrinkKey] = drinkId;
         return firebase.database().ref().update(updates);
     }
 
     removeFavourite = (drinkId) => {
+        const userID = firebase.auth().currentUser.uid;
+        const dbRef = firebase.database().ref().child('/user/'+userID+'/favourites');
 
-        const dbRef = firebase.database().ref().child('/user/favourites');
 
         let drinkKey = "";
 
@@ -43,7 +45,7 @@ class DrinkCard extends React.Component {
 
 
         let updates = {};
-        updates['/user/favourites/' + drinkKey] = null;
+        updates['/user/' + userID + '/favourites/' + drinkKey] = null;
         return firebase.database().ref().update(updates);
 
     }
@@ -94,16 +96,19 @@ class DrinksList extends React.Component {
     }
 
     componentDidMount() {
-        const favourites = firebase.database().ref().child('user/favourites');
-        if(favourites) {
-            favourites.on('value', snap => {
-                if(snap.val()){
-                    this.setState({
-                        favourites: Object.values(snap.val())
-                    })
-                }
+        const userID = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+        if (userID) {
+            const favourites = firebase.database().ref().child('user/'+userID+'/favourites');
+            if(favourites) {
+                favourites.on('value', snap => {
+                    if(snap.val()){
+                        this.setState({
+                            favourites: Object.values(snap.val())
+                        })
+                    }
 
-            })
+                })
+            }
         }
     }
 

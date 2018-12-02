@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, MDBContainer, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse } from "mdbreact";
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 class NavbarPage extends React.Component {
     constructor(props){

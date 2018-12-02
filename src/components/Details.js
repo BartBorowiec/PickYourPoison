@@ -6,7 +6,9 @@ import {MDBContainer, MDBRow, MDBCol, MDBCard} from "mdbreact";
 import {faHeart as farHeart} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 import {faHeart as fasHeart} from "@fortawesome/free-solid-svg-icons";
 
 
@@ -23,16 +25,17 @@ class Details extends React.Component {
 
         // Get a key for a new Post.
         const newDrinkKey = firebase.database().ref().child('favourites').push().key;
-
+        const userID = firebase.auth().currentUser.uid;
         // Write the new post's data simultaneously in the posts list and the user's post list.
         let updates = {};
-        updates['/user/favourites/' + newDrinkKey] = drinkId;
+        updates['/user/' + userID + '/favourites/' + newDrinkKey] = drinkId;
         return firebase.database().ref().update(updates);
     }
 
     removeFavourite = (drinkId) => {
 
-        const dbRef = firebase.database().ref().child('/user/favourites');
+        const userID = firebase.auth().currentUser.uid;
+        const dbRef = firebase.database().ref().child('/user/'+ userID +'/favourites');
 
         let drinkKey = "";
 
@@ -47,21 +50,24 @@ class Details extends React.Component {
 
 
         let updates = {};
-        updates['/user/favourites/' + drinkKey] = null;
+        updates['/user/' + userID + '/favourites/' + drinkKey] = null;
         return firebase.database().ref().update(updates);
 
     }
 
 
     componentDidMount() {
-        const dbRef = firebase.database().ref().child('/user/favourites');
-        dbRef.on('value', snap => {
-            if(snap.val()){
-                this.setState({
-                    isFavourite: Object.values(snap.val()).includes(this.props.match.params.id)
-                })
-            }
-        })
+        const userID = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+        if (userID) {
+            const dbRef = firebase.database().ref().child('/user/'+ userID +'/favourites');
+            dbRef.on('value', snap => {
+                if(snap.val()){
+                    this.setState({
+                        isFavourite: Object.values(snap.val()).includes(this.props.match.params.id)
+                    })
+                }
+            })
+        }
         axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${this.props.match.params.id}`)
             .then(res => {
                 this.setState({
@@ -69,6 +75,7 @@ class Details extends React.Component {
                     isLoaded: true
                 })
             })
+
     }
 
     handleFavClick = () => {
@@ -119,9 +126,10 @@ class Details extends React.Component {
                                     <p>
                                         {drink.strInstructions}
                                     </p>
+                                    {firebase.auth().currentUser && this.state.isFavourite && <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>}
+                                    {firebase.auth().currentUser && !this.state.isFavourite && <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
+                                    {!firebase.auth().currentUser && null}
 
-                                    {this.state.isFavourite ? <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer", color: "#E74C3C"}} size="2x" icon={fasHeart}/>
-                                        : <FontAwesomeIcon onClick={this.handleFavClick} style={{cursor: "pointer"}} size="2x" icon={farHeart}/>}
                                     <Link className="btn" style={{backgroundColor: "#8EBB88",width: "150px"}} to={'../'}>Go back</Link>
                                 </MDBCol>
                             </MDBRow>

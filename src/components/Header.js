@@ -52,7 +52,7 @@ class Header extends React.Component {
                     <input style={{ fontSize: "24px", padding: "10px"}} placeholder={"Enter ingredient"} type={"text"} onChange={this.handleInputChange}/>
                     <input type={"submit"} value="Give me a drink!" className={"btn"} style={{
                         backgroundColor: "#8EBB88",
-                        fontSize: "24px",
+                        fontSize: "22px",
                         margin: 0,
                         verticalAlign: "top"
                     }}/>

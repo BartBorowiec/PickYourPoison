@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 class Signup extends React.Component {
     constructor(props) {
